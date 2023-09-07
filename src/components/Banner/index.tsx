@@ -6,14 +6,10 @@ import Button from '../Button'
 import { useEffect, useState } from 'react'
 import { Game } from '../Pages/Home'
 import { formataPreco } from '../ProductList'
-const Banner = () => {
-  const [game, setGame] = useState<Game>()
 
-  useEffect(() => {
-    fetch('https://fake-api-tau.vercel.app/api/eplay/destaque')
-      .then((res) => res.json())
-      .then((res) => setGame(res))
-  }, [])
+import { useGetFeatureGameQuery } from '../../services/api'
+const Banner = () => {
+  const { data: game, isLoading } = useGetFeatureGameQuery()
 
   if (!game) {
     return <h3>Carregando...</h3>
